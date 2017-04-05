@@ -1,2 +1,2 @@
 # DemolaTecina
-:flush: Project based on a Demola Challenge
+:flushed: Project based on a Demola Challenge
