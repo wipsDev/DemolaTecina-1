@@ -9,7 +9,8 @@ html {
 body {
   background-color: #dddbef;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  overflow-x: hidden; }
 
 .box {
   height: 100%;
@@ -60,7 +61,8 @@ body {
   justify-content: center;
   background-color: rgba(207, 71, 115, 0.59);
   animation: mover 2s;
-  padding: 2%; }
+  padding: 2%;
+  margin-bottom: 20px; }
   .title h1 {
     font-size: 60px;
     font-font-family: Lato; }

@@ -17,6 +17,7 @@ body{
 	background-color: $body;
 	height: 100%;
 	width: 100%;
+	overflow-x: hidden;
 }
 
 
@@ -104,6 +105,7 @@ body{
 	background-color: $selected;
 	animation: mover 2s;
 	padding: 2%;
+	margin-bottom: 20px;
 
 	
 	h1{
