@@ -1,0 +1,35 @@
+* {
+  padding: 0px;
+  margin: 0px; }
+
+html {
+  height: 100%; }
+
+body {
+  background-color: #F0FFFF;
+  height: 100%;
+  width: 100%; }
+
+.box {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.usuario {
+  font-family: 'Lato', sans-serif;
+  color: black;
+  font-size: 40px;
+  text-align: center;
+  height: 80px;
+  width: 70%;
+  border: 3px solid black;
+  border-radius: 3px;
+  opacity: .8; }
+
+::placeholder {
+  font-family: 'Lato', sans-serif;
+  color: black;
+  font-weight: bold; }
+
+/*# sourceMappingURL=default.css.map */

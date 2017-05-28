@@ -1,0 +1,21 @@
+{
+  "name": "sources",
+  "homepage": "https://github.com/ericsuarez/DemolaTecina",
+  "authors": [
+    "ericrsuarez <eric.ramos.suarez@gmail.com>"
+  ],
+  "description": "All the sources needed to develop the demola project",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "firebase": "^4.0.0"
+  }
+}

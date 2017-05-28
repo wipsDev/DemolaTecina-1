@@ -1,0 +1,98 @@
+@import "partials/variables";
+@import "partials/mixins";
+
+@include google-font(Lato);
+
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+
+html{
+	height: 100vh;
+}
+
+body{
+	background-color: $body;
+	height: 100vh;
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+
+.box{
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;	
+	flex-wrap: wrap;
+}
+
+.hidden{
+	display: none;
+}
+
+
+.sub-box{
+	height: 30vh;
+	width: 43vw;
+	margin: 1em 0;
+
+	background-color: $boxcolor;;
+	transform: scale(1);
+	transition: all .5s;
+
+	&:focus{
+		background-color: $selected;
+		transform: scale(1.1);
+	}
+
+
+	.dentro{
+		text-align: center;
+		h1{
+			font-size: 2em;
+
+		}
+	}
+
+
+}
+
+
+
+.title{
+	height: 10%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: $selected;
+	animation: mover 2s;
+	padding: 2%;
+	margin-bottom: 20px;
+
+	
+	h1{
+		font: {
+			size:60px;
+			font-family: Lato;
+		}
+	}
+
+	@keyframes mover {
+		0%{
+			transform: translateX(-2000px);
+		}
+		100%{
+			transform: translateX(0px);
+		}
+	}
+}
+
+.salir{
+	background-color: $salir;
+}
+
+
+
