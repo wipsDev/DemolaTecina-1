@@ -10,6 +10,7 @@
 function check(){
 
   if(localStorage.getItem("carga")){
+
     return localStorage.getItem("carga");
   }
   
@@ -34,7 +35,7 @@ function comprobarPalabra(string){
 
  $(function () {
 
-
+  var colores = ["red","black","green","brown","purple","sky","pink","grey","blue"];
   var carga = check();
   console.log(carga);
 
@@ -48,6 +49,7 @@ function comprobarPalabra(string){
     storageBucket: "demola-453e3.appspot.com",
     messagingSenderId: "688762689219"
   };
+
   firebase.initializeApp(config);
 
 
@@ -67,32 +69,57 @@ function comprobarPalabra(string){
       nombre = transform(snapshot.val()[i].nombre);
 
 
+
       href = `<div   id="`+i+`" class="sub-box" tabindex="`+i+`" value="`+nombre+`">
-      <div class="dentro">
-      <i class="fa fa-`+snapshot.val()[i].icon+`" aria-hidden="true"></i>
-      <h1>`+nombre+`</h1>
+      <div class="dentro `+ colores[i] +` ">
+        <div class="text">
+          <h1 class="nombre">`+ nombre +`</h1>
+        </div>
+  
       </div>
       </div>`
 
+
       $('.box').append(href);
+
+
+      
+      
+
 
     }
 
-    var back = ` <div  id="`+count+`" class="sub-box salir" tabindex="`+count+`" value="`+count+`">
-    <div class="dentro">
-    <i class="fa fa-sign-out" aria-hidden="true"></i>
-    <h1>Salir</h1>
-    </div>
-    </div>`
-    $('.box').append(back);
+    if(count %3 != 0){
+       href = `<div class="sub-box">
+      <div class="dentro backgra ">
+       
+      </div>`
 
-    var salir = ` <div  id="`+(++count)+`" class="sub-box salir" tabindex="`+(count)+`" value="`+count+`">
-    <div class="dentro">
-    <i class="fa fa-sign-out" aria-hidden="true"></i>
-    <h1>Salir</h1>
+
+      $('.box').append(href);
+    }
+
+
+
+    var back = ` <div  id="`+count+`" class="sub-box salir" tabindex="`+count+`" value="`+count+`">
+    <div class="dentro atras">
+      <div class="text">
+          <h1 class="nombre"> Atrás </h1>
+      </div>
+
+      </div>
     </div>
     </div>`
-    $('.box').append(salir);
+    $('.end').append(back);
+
+    var salir = ` <div  id="`+(++count)+`" class="sub-box salir" tabindex="`+count+`" value="`+count+`">
+    <div class="dentro salir">
+      <div class="text">
+          <h1 class="nombre"> Salir </h1>
+        </div>
+    </div>
+    </div>`
+    $('.end').append(salir);
 
 
     $('.sub-box[id="0"]').focus();

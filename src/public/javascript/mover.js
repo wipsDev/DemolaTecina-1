@@ -29,7 +29,7 @@ function calculateMin(_MIN){
 //lógica del movimiento de las flechas
 
 $('html').keydown(function(e){
-	const filas = 2;
+	const filas = 3;
 	var _MAX = -20;
 	var _MIN = 99999;
 

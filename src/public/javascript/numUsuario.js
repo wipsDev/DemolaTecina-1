@@ -2,7 +2,6 @@
 const url = "incidencias.html";
 
 
-firebase.initializeApp(config);
 
 
 document.getElementById('usuario').onkeypress = function(e){
@@ -13,6 +12,7 @@ document.getElementById('usuario').onkeypress = function(e){
 	if (keyCode == '13'){
 
    		localStorage.setItem("usuario", $(this).val());
+   		localStorage.setItem("atras", 'index.html');
    		$(location).attr('href', url);
 
 
