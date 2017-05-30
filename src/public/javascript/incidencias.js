@@ -10,7 +10,7 @@
 
 // Variable=[NHabitacion,NEmpleado,Incidencia,Hora,Dia,"False"]
 function writeUserData(NHabitacion, NEmpleado, Incidencia, Hora,Date) {
-  firebase.database().ref('incidencias/').set({
+  firebase.database().ref('incidencias/' + NHabitacion + '/' + NEmpleado + '/' + Incidencia).set({
 
     NHabitacion: NHabitacion,
     NEmpleado: NEmpleado,
@@ -238,6 +238,7 @@ $("body").on("keydown", ".sub-box", function(e){
 
         writeUserData(habitacion,usuario,incidencia,time,date);
 
+        
 
 
         swal({
@@ -253,12 +254,11 @@ $("body").on("keydown", ".sub-box", function(e){
            showCancelButton: false
          }).then(
          function(){
-           localStorage.removeItem("carga");
-           localStorage.removeItem("atras");
-           localStorage.removeItem("final");
-           localStorage.removeItem("usuario");
-
-           $(location).attr('href', "index.html");
+          localStorage.removeItem("carga");
+          localStorage.removeItem("atras");
+          localStorage.removeItem("final");
+          localStorage.removeItem("usuario");
+          $(location).attr('href', "index.html");
          });
        });
 

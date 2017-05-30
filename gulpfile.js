@@ -81,11 +81,11 @@ gulp.task('mini:css', function() {
 
 
 
-gulp.task('mini:js',['babel'], function (cb) {
+gulp.task('mini:js', function (cb) {
   pump([
-        gulp.src('public/javascript/*.js'),
+        gulp.src('src/public/javascript/*.js'),
         uglify(),
-        gulp.dest('minified/javascript')
+        gulp.dest('src/minified/javascript')
     ],
     cb
   );
