@@ -1,11 +1,14 @@
  "user strict"
 
- function transform(string) {
 
-  string = string.toLowerCase();
 
-  return string.charAt(0).toUpperCase() + string.slice(1);
+ function reset(){
+  localStorage.removeItem("carga");
+  localStorage.removeItem("atras");
+  localStorage.removeItem("final");
+  localStorage.removeItem("usuario");
 }
+
 
 
 // Variable=[NHabitacion,NEmpleado,Incidencia,Hora,Dia,"False"]
@@ -75,28 +78,22 @@ function comprobarPalabra(string){
 function comprobarFuncion(string){
 
   if(string == "Atrás"){
-
-    if(localStorage.getItem("final")){
-      localStorage.setItem("carga","SubCategorías/" + localStorage.getItem("atras"));
-      localStorage.removeItem("final");
-      location.reload();
-      
-    }
-    else if(localStorage.getItem("atras") != "index.html"){
-      localStorage.removeItem("carga");
-      $(location).attr('href', "incidencias.html");
-    }
-    else{
+    if(localStorage.getItem("carga") == "Incidencias"){
       $(location).attr('href', "index.html");
     }
+    else{
+      if(localStorage.getItem("final")){
+        localStorage.removeItem("final");
+      }
+      localStorage.setItem("carga",  localStorage.getItem("atras"));
+      location.reload();
+    }
+    
+
   }
 
   else if(string == "Salir"){
-    localStorage.removeItem("carga");
-    localStorage.removeItem("atras");
-    localStorage.removeItem("final");
-    localStorage.removeItem("usuario");
-
+    reset();
     $(location).attr('href', "index.html");
   }
 
@@ -141,7 +138,7 @@ $(function () {
     for(i in snapshot.val()){
 
       count++;
-      nombre = transform(snapshot.val()[i].nombre);
+      nombre = snapshot.val()[i].nombre;
 
 
 
@@ -230,8 +227,6 @@ $("body").on("keydown", ".sub-box", function(e){
 
         var fecha= new Date()
         var time  = fecha.getHours() + ":" + fecha.getMinutes();
-
-      
         var date =  fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" +  fecha.getFullYear();
 
 
@@ -254,12 +249,9 @@ $("body").on("keydown", ".sub-box", function(e){
            showCancelButton: false
          }).then(
          function(){
-          localStorage.removeItem("carga");
-          localStorage.removeItem("atras");
-          localStorage.removeItem("final");
-          localStorage.removeItem("usuario");
+          reset();
           $(location).attr('href', "index.html");
-         });
+        });
        });
 
 
@@ -269,19 +261,19 @@ $("body").on("keydown", ".sub-box", function(e){
       }
       else{
 
-        if(comprobarPalabra($(this).attr('value'))){
-          localStorage.setItem("atras", $(this).attr('value')  );
-          localStorage.setItem("carga", "SubCategorías/" + $(this).attr('value') );
-        }
+      
+          localStorage.setItem("atras",localStorage.getItem("carga"));
+
+          if(comprobarPalabra($(this).attr('value'))){
+            localStorage.setItem("carga", "SubCategorías/" + $(this).attr('value'));
+          }
+          else{
+            localStorage.setItem("final",true);
+            localStorage.setItem("carga", $(this).attr('value'));
+          }
 
 
-        else{
-          localStorage.setItem("final",true);
-          localStorage.setItem("carga", $(this).attr('value'));
-
-        } 
-
-        location.reload();
+          location.reload();
       }
 
 
