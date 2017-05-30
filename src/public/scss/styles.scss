@@ -1,7 +1,6 @@
 @import "partials/variables";
 @import "partials/mixins";
 
-@include google-font(Lato);
 
 *{
 	padding: 0px;
@@ -15,11 +14,11 @@ html{
 
 body{
 
-	font-family: 'Oswald', sans-serif;
+	font-family: sans-serif;
 	background-color: $body;
 	height: 100vh;
 	width: 100vw;
-	overflow::; hidden;
+	overflow: hidden;
 }
 
 .space{
@@ -28,6 +27,10 @@ body{
 	h1{
 		padding: 15px;
 	}
+}
+
+.center{
+	align-items: center;
 }
 
 .box{
@@ -94,6 +97,8 @@ body{
 .hidden{
 	display: none;
 }
+
+
 
 
 .sub-box{
@@ -177,9 +182,22 @@ body{
 		&.atras{
 			background-color: $atras;
 		}
+		&.hardblue{
+			background-color: $hardblue;
+		}
+		&.chicle{
+			background-color: $chicle;
+		}
+		&.hardpurple{
+			background-color: $hardpurple;
+		}
 	}
 
 
+}
+
+.overload{
+	height: calc(80vh/4.2);
 }
 
 

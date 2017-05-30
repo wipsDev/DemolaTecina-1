@@ -2,9 +2,49 @@
 
  function transform(string) {
 
-    string = string.toLowerCase();
+  string = string.toLowerCase();
 
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+// Variable=[NHabitacion,NEmpleado,Incidencia,Hora,Dia,"False"]
+function writeUserData(NHabitacion, NEmpleado, Incidencia, Hora,Date) {
+  firebase.database().ref('incidencias/').set({
+
+    NHabitacion: NHabitacion,
+    NEmpleado: NEmpleado,
+    Incidencia : Incidencia,
+    Hora: Hora,
+    Date: Date,
+    Prestige: "False"
+
+  });
+}
+
+function spaces(count){
+ var times = count%3;
+
+ if(times == 1){
+  href = `<div class="sub-box">
+  <div class="dentro backgra ">
+  </div>`
+  $('.box').append(href);
+
+  href = `<div class="sub-box">
+  <div class="dentro backgra ">
+  </div>`
+  $('.box').append(href);
+  count = count+2;
+}
+else if(times == 2){
+  href = `<div class="sub-box">
+  <div class="dentro backgra ">
+  </div>`
+  $('.box').append(href);
+  count++;
+
+}
 }
 
 function check(){
@@ -20,8 +60,8 @@ function check(){
 
 
 function comprobarPalabra(string){
-  var list = ["Instalaciones","Baño","Habitaciones","Mantenimiento"];
 
+  var list = ["Instalaciones","Baño","Habitaciones","Mantenimiento"];
 
   for(i in list){
     if (list[i] == string){
@@ -32,10 +72,46 @@ function comprobarPalabra(string){
   return false;
 }
 
+function comprobarFuncion(string){
 
- $(function () {
+  if(string == "Atrás"){
 
-  var colores = ["red","black","green","brown","purple","sky","pink","grey","blue"];
+    if(localStorage.getItem("final")){
+      localStorage.setItem("carga","SubCategorías/" + localStorage.getItem("atras"));
+      localStorage.removeItem("final");
+      location.reload();
+      
+    }
+    else if(localStorage.getItem("atras") != "index.html"){
+      localStorage.removeItem("carga");
+      $(location).attr('href', "incidencias.html");
+    }
+    else{
+      $(location).attr('href', "index.html");
+    }
+  }
+
+  else if(string == "Salir"){
+    localStorage.removeItem("carga");
+    localStorage.removeItem("atras");
+    localStorage.removeItem("final");
+    localStorage.removeItem("usuario");
+
+    $(location).attr('href', "index.html");
+  }
+
+  else{
+    return true;
+  }
+
+  
+
+}
+
+
+$(function () {
+
+  var colores = ["red","black","green","brown","purple","sky","pink","grey","blue","chicle","hardblue","hardpurple"];
   var carga = check();
   console.log(carga);
 
@@ -60,7 +136,6 @@ function comprobarPalabra(string){
     var nombre;
     var count = 0;
 
-    console.log(snapshot.val());
     
 
     for(i in snapshot.val()){
@@ -72,58 +147,65 @@ function comprobarPalabra(string){
 
       href = `<div   id="`+i+`" class="sub-box" tabindex="`+i+`" value="`+nombre+`">
       <div class="dentro `+ colores[i] +` ">
-        <div class="text">
-          <h1 class="nombre">`+ nombre +`</h1>
-        </div>
-  
-      </div>
-      </div>`
-
-
-      $('.box').append(href);
-
-
-      
-      
-
-
-    }
-
-    if(count %3 != 0){
-       href = `<div class="sub-box">
-      <div class="dentro backgra ">
-       
-      </div>`
-
-
-      $('.box').append(href);
-    }
-
-
-
-    var back = ` <div  id="`+count+`" class="sub-box salir" tabindex="`+count+`" value="`+count+`">
-    <div class="dentro atras">
       <div class="text">
-          <h1 class="nombre"> Atrás </h1>
+      <h1 class="nombre">`+ nombre +`</h1>
       </div>
 
       </div>
+      </div>`
+
+
+      $('.box').append(href);
+
+
+      
+      
+
+
+    }
+
+    if(count > 9){
+
+      $('.sub-box').addClass("overload");
+      spaces(count);
+
+    }
+    else if(count > 3){
+
+      spaces(count);
+
+    }
+
+
+    else{
+      $('.box').addClass('center');
+    }
+    
+
+
+    var back = ` <div  id="`+count+`" class="sub-box salir" tabindex="`+count+`" value="Atrás">
+    <div class="dentro atras">
+    <div class="text">
+    <h1 class="nombre"> Atrás </h1>
+    </div>
+
+    </div>
     </div>
     </div>`
     $('.end').append(back);
 
-    var salir = ` <div  id="`+(++count)+`" class="sub-box salir" tabindex="`+count+`" value="`+count+`">
+    var salir = ` <div  id="`+(++count)+`" class="sub-box salir" tabindex="`+count+`" value="Salir">
     <div class="dentro salir">
-      <div class="text">
-          <h1 class="nombre"> Salir </h1>
-        </div>
+    <div class="text">
+    <h1 class="nombre"> Salir </h1>
+    </div>
     </div>
     </div>`
     $('.end').append(salir);
 
 
     $('.sub-box[id="0"]').focus();
-    
+
   })
 });
 
@@ -131,20 +213,79 @@ function comprobarPalabra(string){
 
 
 
- $("body").on("keydown", ".sub-box", function(e){
+$("body").on("keydown", ".sub-box", function(e){
   if (!e) e = window.event;
   var keyCode = e.keyCode || e.which;
   if (keyCode == 13) { 
 
-    if(comprobarPalabra($(this).attr('value'))){
-      localStorage.setItem("carga", "SubCategorías/" + $(this).attr('value') );
-    }
-    else{
-      localStorage.setItem("carga", $(this).attr('value'));
-    }
-    
-    location.reload();
-    
+    if(comprobarFuncion($(this).attr('value'))){
+
+      if(localStorage.getItem("final")){
+
+        // Variable=[NHabitacion,NEmpleado,Incidencia,Hora,Dia,"False"]
+        var habitacion = localStorage.getItem("habitacion");
+        var usuario = localStorage.getItem("usuario");
+        var incidencia = $(this).attr('value');
+
+
+        var fecha= new Date()
+        var time  = fecha.getHours() + ":" + fecha.getMinutes();
+
+      
+        var date =  fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" +  fecha.getFullYear();
+
+
+
+        writeUserData(habitacion,usuario,incidencia,time,date);
+
+
+
+        swal({
+        }).then(
+        function() { 
+          swal({
+           title: 'Enviado',
+           text: 'Habitación: ' + habitacion + ' Usuario: ' + usuario + ' Incidencia: ' + incidencia + ' Hora: ' + time + ' Fecha: ' + date + ')',
+           type: 'success',
+           showCloseButton: false,
+           confirmButtonText: '¡Bien!',
+           confirmButtonColor: '#1db75a',
+           showCancelButton: false
+         }).then(
+         function(){
+           localStorage.removeItem("carga");
+           localStorage.removeItem("atras");
+           localStorage.removeItem("final");
+           localStorage.removeItem("usuario");
+
+           $(location).attr('href', "index.html");
+         });
+       });
+
+
+
+
+
+      }
+      else{
+
+        if(comprobarPalabra($(this).attr('value'))){
+          localStorage.setItem("atras", $(this).attr('value')  );
+          localStorage.setItem("carga", "SubCategorías/" + $(this).attr('value') );
+        }
+
+
+        else{
+          localStorage.setItem("final",true);
+          localStorage.setItem("carga", $(this).attr('value'));
+
+        } 
+
+        location.reload();
+      }
+
+
+    }   
   }
 });
 
