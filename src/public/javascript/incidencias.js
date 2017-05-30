@@ -81,10 +81,13 @@ function comprobarFuncion(string){
     if(localStorage.getItem("carga") == "Incidencias"){
       $(location).attr('href', "index.html");
     }
+    else if(localStorage.getItem("final")){
+      localStorage.removeItem("final")
+      localStorage.setItem("carga",  localStorage.getItem("atras"));
+      localStorage.setItem("atras",  "Incidencias");
+      location.reload();
+    }
     else{
-      if(localStorage.getItem("final")){
-        localStorage.removeItem("final");
-      }
       localStorage.setItem("carga",  localStorage.getItem("atras"));
       location.reload();
     }
