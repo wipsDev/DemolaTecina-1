@@ -23,6 +23,17 @@ function writeUserData(NHabitacion, NEmpleado, Incidencia, Hora,Date) {
     Prestige: "False"
 
   });
+   firebase.database().ref('Almacen/').push({
+
+    NHabitacion: NHabitacion,
+    NEmpleado: NEmpleado,
+    Incidencia : Incidencia,
+    Hora: Hora,
+    Date: Date,
+    Prestige: "False"
+
+  });
+ 
 }
 
 function spaces(count){
